@@ -6,7 +6,10 @@ import com.google.common.base.Preconditions;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Random;
 
+import edu.ucsd.cse110.dogegotchi.R;
+import edu.ucsd.cse110.dogegotchi.daynightcycle.IDayNightCycleObserver;
 import edu.ucsd.cse110.dogegotchi.observer.ISubject;
 import edu.ucsd.cse110.dogegotchi.ticker.ITickerObserver;
 
@@ -17,7 +20,7 @@ import edu.ucsd.cse110.dogegotchi.ticker.ITickerObserver;
  *
  * TODO: Exercise 2 -- enable {@link State#SAD} mood, and add support for {@link State#EATING} behavior.
  */
-public class Doge implements ISubject<IDogeObserver>, ITickerObserver {
+public class Doge implements ISubject<IDogeObserver>, ITickerObserver, IDayNightCycleObserver {
     /**
      * Current number of ticks. Reset after every potential mood swing.
      */
@@ -73,6 +76,14 @@ public class Doge implements ISubject<IDogeObserver>, ITickerObserver {
         }
     }
 
+    @Override
+    public void onPeriodChange(Period newPeriod) {
+        if ((newPeriod == Period.NIGHT) && (this.state == State.HAPPY))
+            setState(State.SLEEPING);
+        else if (newPeriod == Period.DAY)
+            setState(State.HAPPY);
+    }
+
     /**
      * TODO: Exercise 1 -- Fill in this method to randomly make doge sad with probability {@link #moodSwingProbability}.
      *
@@ -80,6 +91,10 @@ public class Doge implements ISubject<IDogeObserver>, ITickerObserver {
      */
     private void tryRandomMoodSwing() {
         // TODO: Exercise 1 -- Implement this method...
+        if (this.state == State.HAPPY){
+            if (new Random().nextDouble() <= moodSwingProbability)
+                setState(State.SAD);
+        }
     }
 
     @Override
@@ -99,6 +114,8 @@ public class Doge implements ISubject<IDogeObserver>, ITickerObserver {
      *       an update occur, namely notifying the observers. And it's unused
      *       right now, hm...
      */
+
+    //TODO have notify observers method not do 2 in one
     private void setState(final Doge.State newState) {
         this.state = newState;
         Log.i(this.getClass().getSimpleName(), "Doge state changed to: " + newState);

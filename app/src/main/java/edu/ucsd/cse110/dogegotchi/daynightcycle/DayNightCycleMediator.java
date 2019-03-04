@@ -14,7 +14,7 @@ import edu.ucsd.cse110.dogegotchi.ticker.ITickerObserver;
  *
  * This class observes a ticker objecter via the
  * {@link ITickerObserver} interface.
- *
+ * TODO not SRP
  * It publishes its own events day/night start events via the
  * {@link IDayNightCycleObserver} interface.
  */

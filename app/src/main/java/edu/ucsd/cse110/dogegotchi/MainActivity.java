@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import edu.ucsd.cse110.dogegotchi.daynightcycle.DayNightCycleMediator;
+import edu.ucsd.cse110.dogegotchi.doge.DogFoodMediator;
 import edu.ucsd.cse110.dogegotchi.doge.Doge;
 import edu.ucsd.cse110.dogegotchi.doge.DogeView;
 import edu.ucsd.cse110.dogegotchi.sprite.Coord;
@@ -31,6 +32,8 @@ public class MainActivity extends Activity {
     private ITicker ticker;
 
     private DayNightCycleMediator dayNightCycleMediator;
+
+    private DogFoodMediator dogFoodMediator;
 
     private Doge doge;
 
@@ -73,6 +76,7 @@ public class MainActivity extends Activity {
         // create the almighty doge
         createDoge(ticksPerPeriod);
         ticker.register(this.doge);
+        dayNightCycleMediator.register(this.doge);
 
         final GameView gameView = this.findViewById(R.id.GameCanvasView);
         gameView.setMedia(dayPlayer, nightPlayer);
@@ -94,10 +98,16 @@ public class MainActivity extends Activity {
          *
          *      3. Feed doge and update their state accordingly.
          */
+
+        this.dogFoodMediator = new DogFoodMediator();
+        doge.register(this.dogFoodMediator);
+
         final View foodMenu = this.findViewById(R.id.FoodMenuView);
         final ImageButton hamButton       = foodMenu.findViewById(R.id.HamButton),
                           steakButton     = foodMenu.findViewById(R.id.SteakButton),
                           turkeyLegButton = foodMenu.findViewById(R.id.TurkeyLegButton);
+
+        //TODO set up onclicks
         // hm... should prob do something with this
 
         /**
@@ -175,6 +185,12 @@ public class MainActivity extends Activity {
         stateCoords.put(Doge.State.SLEEPING,
                         new Coord(getResources().getInteger(R.integer.sleeping_x),
                                   getResources().getInteger(R.integer.sleeping_y)));
+
+        stateBitmaps.put(Doge.State.SAD,
+                BitmapFactory.decodeResource(getResources(), R.drawable.sad_2x));
+        stateCoords.put(Doge.State.SAD,
+                new Coord(getResources().getInteger(R.integer.sad_x),
+                        getResources().getInteger(R.integer.sad_y)));
 
         // TODO: Exercise 2 - Set up sprite and coords for EATING state.
         // TODO: Exercise 3 - You may need to create the Factory of Strategies here
