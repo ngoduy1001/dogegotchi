@@ -99,13 +99,12 @@ public class MainActivity extends Activity {
          *      3. Feed doge and update their state accordingly.
          */
 
-        this.dogFoodPresenter = new DogFoodPresenter();
-        doge.register(this.dogFoodPresenter);
-
         final View foodMenu = this.findViewById(R.id.FoodMenuView);
         final ImageButton hamButton       = foodMenu.findViewById(R.id.HamButton),
                           steakButton     = foodMenu.findViewById(R.id.SteakButton),
                           turkeyLegButton = foodMenu.findViewById(R.id.TurkeyLegButton);
+        this.dogFoodPresenter = new DogFoodPresenter(foodMenu);
+        doge.register(this.dogFoodPresenter);
 
         //TODO set up onclicks
         // hm... should prob do something with this

@@ -1,7 +1,15 @@
 package edu.ucsd.cse110.dogegotchi.doge;
+import android.view.View;
+
 import edu.ucsd.cse110.dogegotchi.*;
 
 public class DogFoodPresenter implements IDogeObserver {
+    private View view;
+
+    public DogFoodPresenter(View view) {
+        this.view = view;
+    }
+
     /**
      * If dog is sad, reveal food menu
      *
@@ -12,5 +20,8 @@ public class DogFoodPresenter implements IDogeObserver {
         if (newState == Doge.State.SAD){
             return;
         }
+    }
+    public void updateView(){
+        view.setVisibility(View.VISIBLE);
     }
 }
