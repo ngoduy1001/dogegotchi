@@ -1,7 +1,7 @@
 package edu.ucsd.cse110.dogegotchi.doge;
 import edu.ucsd.cse110.dogegotchi.*;
 
-public class DogFoodMediator implements IDogeObserver {
+public class DogFoodPresenter implements IDogeObserver {
     /**
      * If dog is sad, reveal food menu
      *

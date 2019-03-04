@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import edu.ucsd.cse110.dogegotchi.daynightcycle.DayNightCycleMediator;
-import edu.ucsd.cse110.dogegotchi.doge.DogFoodMediator;
+import edu.ucsd.cse110.dogegotchi.doge.DogFoodPresenter;
 import edu.ucsd.cse110.dogegotchi.doge.Doge;
 import edu.ucsd.cse110.dogegotchi.doge.DogeView;
 import edu.ucsd.cse110.dogegotchi.sprite.Coord;
@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
 
     private DayNightCycleMediator dayNightCycleMediator;
 
-    private DogFoodMediator dogFoodMediator;
+    private DogFoodPresenter dogFoodPresenter;
 
     private Doge doge;
 
@@ -99,8 +99,8 @@ public class MainActivity extends Activity {
          *      3. Feed doge and update their state accordingly.
          */
 
-        this.dogFoodMediator = new DogFoodMediator();
-        doge.register(this.dogFoodMediator);
+        this.dogFoodPresenter = new DogFoodPresenter();
+        doge.register(this.dogFoodPresenter);
 
         final View foodMenu = this.findViewById(R.id.FoodMenuView);
         final ImageButton hamButton       = foodMenu.findViewById(R.id.HamButton),
