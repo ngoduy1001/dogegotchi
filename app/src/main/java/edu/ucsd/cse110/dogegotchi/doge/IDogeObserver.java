@@ -8,4 +8,5 @@ public interface IDogeObserver {
      * @param newState New state of the doge.
      */
     void onStateChange(Doge.State newState);
+    void onFoodChange(Doge.Food newFood);
 }

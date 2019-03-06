@@ -122,10 +122,14 @@ public class Doge implements ISubject<IDogeObserver>, ITickerObserver, IDayNight
         Log.i(this.getClass().getSimpleName(), "Doge state changed to: " + newState);
         for (IDogeObserver observer : this.observers) {
             observer.onStateChange(newState);
+
         }
     }
     private void setFood(final Doge.Food food){
         this.food = food;
+        for (IDogeObserver observer : this.observers) {
+            observer.onFoodChange(food);
+        }
     }
     public void feed(Food food){
         this.setState(State.EATING);

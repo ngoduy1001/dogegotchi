@@ -34,18 +34,40 @@ public class DogeView
      */
     private ImmutableMap<Doge.State, Coord> coordsPerState;
 
+    /**
+     * Lookup table for each food's bitmap.
+     */
+    private ImmutableMap<Doge.Food, Bitmap> viewsPerFood;
+
+    /**
+     * Lookup table for the coordinates for each food.
+     */
+    private ImmutableMap<Doge.Food, Coord> coordsPerFood;
+
     private Strategy strategy;
+
+    public Bitmap foodSprite = null;
+
+    public Coord foodCoord = null;
+
 
     public DogeView(final Context context,
                     final Doge.State initialState,
                     final Map<Doge.State, Bitmap> viewsPerState,
-                    final Map<Doge.State, Coord> coordsPerState) {
+                    final Map<Doge.State, Coord> coordsPerState,
+                    final Map<Doge.Food, Bitmap> viewsPerFood,
+                    final Map<Doge.Food, Coord> coordsPerFood) {
         Preconditions.checkNotNull(context);
         Preconditions.checkNotNull(viewsPerState);
         Preconditions.checkNotNull(coordsPerState);
+        Preconditions.checkNotNull(viewsPerFood);
+        Preconditions.checkNotNull(coordsPerFood);
+
 
         this.viewsPerState  = ImmutableMap.copyOf(viewsPerState);
         this.coordsPerState = ImmutableMap.copyOf(coordsPerState);
+        this.viewsPerFood = ImmutableMap.copyOf(viewsPerFood);
+        this.coordsPerFood = ImmutableMap.copyOf(coordsPerFood);
 
         // load sprite for initial state
         onStateChange(initialState);
@@ -64,7 +86,26 @@ public class DogeView
         this.setSprite(this.viewsPerState.get(newState));
         this.setCoord(this.coordsPerState.get(newState));
         // TODO FACTORY create here then save the strategy
-        this.strategy = StrategyFactory.createStrategy(newState);
+        if (newState == Doge.State.EATING)
+            this.strategy = StrategyFactory.createStrategy(this.foodSprite, this.foodCoord);
+        else if (newState == Doge.State.HAPPY)
+            this.strategy = StrategyFactory.createStrategy(this.viewsPerFood.get(Doge.Food.BONE), this.coordsPerFood.get(Doge.Food.BONE));
+
+    }
+
+    @Override
+    public void onFoodChange(Doge.Food newFood){
+        this.setFoodSprite(this.viewsPerFood.get(newFood));
+        this.setFoodCoord(this.coordsPerFood.get(newFood));
+    }
+
+    public void setFoodSprite(final Bitmap foodSprite) {
+        Preconditions.checkNotNull(sprite);
+        this.foodSprite = foodSprite;
+    }
+    public void setFoodCoord(final Coord coord) {
+        Preconditions.checkNotNull(coord);
+        this.foodCoord = coord;
     }
 
     /**
@@ -91,6 +132,5 @@ public class DogeView
         canvas.drawBitmap(sprite, coord.getX(), coord.getY(), null);
 
         this.strategy.drawToCanvas(canvas);
-
     }
 }
