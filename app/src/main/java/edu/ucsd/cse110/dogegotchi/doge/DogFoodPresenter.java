@@ -25,7 +25,7 @@ public class DogFoodPresenter implements IDogeObserver {
         else if ((newState == Doge.State.EATING) || (newState == Doge.State.SLEEPING))
             view.setVisibility(View.GONE);
     }
-    public void onPlayerFeedDoge(){
-        doge.feed();
+    public void onPlayerFeedDoge(Doge.Food food){
+        doge.feed(food);
     }
 }

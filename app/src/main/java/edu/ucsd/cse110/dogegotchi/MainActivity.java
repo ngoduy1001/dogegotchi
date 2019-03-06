@@ -103,14 +103,17 @@ public class MainActivity extends Activity {
         final ImageButton hamButton       = foodMenu.findViewById(R.id.HamButton),
                           steakButton     = foodMenu.findViewById(R.id.SteakButton),
                           turkeyLegButton = foodMenu.findViewById(R.id.TurkeyLegButton);
+
         this.dogFoodPresenter = new DogFoodPresenter(foodMenu, doge);
         doge.register(this.dogFoodPresenter);
 
         //TODO set up onclicks
         // calll presenter update view
-        hamButton.setOnClickListener(view -> this.dogFoodPresenter.onPlayerFeedDoge());
-        steakButton.setOnClickListener(view -> this.dogFoodPresenter.onPlayerFeedDoge());
-        turkeyLegButton.setOnClickListener(view -> this.dogFoodPresenter.onPlayerFeedDoge());
+        hamButton.setOnClickListener(view -> this.dogFoodPresenter.onPlayerFeedDoge(Doge.Food.HAM));
+
+        steakButton.setOnClickListener(view -> this.dogFoodPresenter.onPlayerFeedDoge(Doge.Food.STEAK));
+
+        turkeyLegButton.setOnClickListener(view -> this.dogFoodPresenter.onPlayerFeedDoge(Doge.Food.TURKEY));
 
         /**
          * TODO: Exercise 3 -- Strategy & Factory
@@ -168,6 +171,9 @@ public class MainActivity extends Activity {
         // create Doge view
         Map<Doge.State, Bitmap> stateBitmaps = new HashMap<>();
         Map<Doge.State, Coord > stateCoords  = new HashMap<>();
+        //TODO For the items
+        Map<Doge.Food, Bitmap> foodBitmaps = new HashMap<>();
+        Map<Doge.Food, Coord > foodCoords  = new HashMap<>();
 
         // Setup views and coords per state.
         /**
@@ -200,6 +206,19 @@ public class MainActivity extends Activity {
         stateCoords.put(Doge.State.EATING,
                 new Coord(getResources().getInteger(R.integer.eating_x),
                         getResources().getInteger(R.integer.eating_y)));
+
+        foodBitmaps.put(Doge.Food.BONE,
+                BitmapFactory.decodeResource(getResources(), R.drawable.dogbone_2x));
+        foodCoords.put(Doge.State.EATING,
+                new Coord(getResources().getInteger(R.integer.eating_x),
+                        getResources().getInteger(R.integer.eating_y)));
+
+        stateBitmaps.put(Doge.State.EATING,
+                BitmapFactory.decodeResource(getResources(), R.drawable.eating_2x));
+        stateCoords.put(Doge.State.EATING,
+                new Coord(getResources().getInteger(R.integer.eating_x),
+                        getResources().getInteger(R.integer.eating_y)));
+
         // TODO: Exercise 3 - You may need to create the Factory of Strategies here
         this.dogeView = new DogeView(this, Doge.State.HAPPY, stateBitmaps, stateCoords);
 

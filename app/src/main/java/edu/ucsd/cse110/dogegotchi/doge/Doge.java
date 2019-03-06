@@ -40,7 +40,7 @@ public class Doge implements ISubject<IDogeObserver>, ITickerObserver, IDayNight
      * State of doge.
      */
     State state;
-
+    Food food;
     private Collection<IDogeObserver> observers;
 
     /**
@@ -124,9 +124,12 @@ public class Doge implements ISubject<IDogeObserver>, ITickerObserver, IDayNight
             observer.onStateChange(newState);
         }
     }
-    public void feed(){
+    private void setFood(final Doge.Food food){
+        this.food = food;
+    }
+    public void feed(Food food){
         this.setState(State.EATING);
-        // wait a second
+        this.setFood(food);
     }
     private void doneEating(){
         if (this.state == State.EATING){
@@ -142,5 +145,11 @@ public class Doge implements ISubject<IDogeObserver>, ITickerObserver, IDayNight
         // TODO: Implement asleep and eating states, and transitions between all states.
         SLEEPING,
         EATING
+    }
+    public enum Food {
+        HAM,
+        STEAK,
+        TURKEY,
+        BONE
     }
 }

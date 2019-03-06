@@ -10,7 +10,7 @@ import com.google.common.base.Preconditions;
  */
 public abstract class BitmapSprite implements ISprite {
 
-    private static final String PRECONDITION_ERROR_MESSAGE =
+    protected static final String PRECONDITION_ERROR_MESSAGE =
             "%s coordinate for sprite must be greater than or equal to 0.";
 
     /**

@@ -64,8 +64,7 @@ public class DogeView
         this.setSprite(this.viewsPerState.get(newState));
         this.setCoord(this.coordsPerState.get(newState));
         // TODO FACTORY create here then save the strategy
-        //TODO cost too much?
-        StrategyFactory factory =
+        this.strategy = StrategyFactory.createStrategy(newState);
     }
 
     /**
@@ -92,7 +91,6 @@ public class DogeView
         canvas.drawBitmap(sprite, coord.getX(), coord.getY(), null);
 
         this.strategy.drawToCanvas(canvas);
-
 
     }
 }
