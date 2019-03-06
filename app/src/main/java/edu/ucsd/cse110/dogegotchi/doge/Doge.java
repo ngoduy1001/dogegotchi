@@ -72,13 +72,14 @@ public class Doge implements ISubject<IDogeObserver>, ITickerObserver, IDayNight
         if (this.numTicks > 0
             && (this.numTicks % this.numTicksBeforeMoodSwing) == 0) {
             tryRandomMoodSwing();
+            doneEating();
             this.numTicks = 0;
         }
     }
 
     @Override
     public void onPeriodChange(Period newPeriod) {
-        if ((newPeriod == Period.NIGHT) && (this.state == State.HAPPY))
+        if ((newPeriod == Period.NIGHT) && (this.state != State.EATING))
             setState(State.SLEEPING);
         else if (newPeriod == Period.DAY)
             setState(State.HAPPY);
@@ -92,7 +93,7 @@ public class Doge implements ISubject<IDogeObserver>, ITickerObserver, IDayNight
     private void tryRandomMoodSwing() {
         // TODO: Exercise 1 -- Implement this method...
         if (this.state == State.HAPPY){
-            if (new Random().nextDouble() <= moodSwingProbability)
+            //if (new Random().nextDouble() <= moodSwingProbability)
                 setState(State.SAD);
         }
     }
@@ -123,7 +124,15 @@ public class Doge implements ISubject<IDogeObserver>, ITickerObserver, IDayNight
             observer.onStateChange(newState);
         }
     }
-
+    public void feed(){
+        this.setState(State.EATING);
+        // wait a second
+    }
+    private void doneEating(){
+        if (this.state == State.EATING){
+            setState(State.HAPPY);
+        }
+    }
     /**
      * Moods and actions for our doge.
      */
@@ -132,6 +141,6 @@ public class Doge implements ISubject<IDogeObserver>, ITickerObserver, IDayNight
         SAD,
         // TODO: Implement asleep and eating states, and transitions between all states.
         SLEEPING,
-        EATING;
+        EATING
     }
 }

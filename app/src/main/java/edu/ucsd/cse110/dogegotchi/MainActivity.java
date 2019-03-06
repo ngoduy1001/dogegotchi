@@ -103,11 +103,14 @@ public class MainActivity extends Activity {
         final ImageButton hamButton       = foodMenu.findViewById(R.id.HamButton),
                           steakButton     = foodMenu.findViewById(R.id.SteakButton),
                           turkeyLegButton = foodMenu.findViewById(R.id.TurkeyLegButton);
-        this.dogFoodPresenter = new DogFoodPresenter(foodMenu);
+        this.dogFoodPresenter = new DogFoodPresenter(foodMenu, doge);
         doge.register(this.dogFoodPresenter);
 
         //TODO set up onclicks
-        // hm... should prob do something with this
+        // calll presenter update view
+        hamButton.setOnClickListener(view -> this.dogFoodPresenter.onPlayerFeedDoge());
+        steakButton.setOnClickListener(view -> this.dogFoodPresenter.onPlayerFeedDoge());
+        turkeyLegButton.setOnClickListener(view -> this.dogFoodPresenter.onPlayerFeedDoge());
 
         /**
          * TODO: Exercise 3 -- Strategy & Factory
@@ -192,6 +195,11 @@ public class MainActivity extends Activity {
                         getResources().getInteger(R.integer.sad_y)));
 
         // TODO: Exercise 2 - Set up sprite and coords for EATING state.
+        stateBitmaps.put(Doge.State.EATING,
+                BitmapFactory.decodeResource(getResources(), R.drawable.eating_2x));
+        stateCoords.put(Doge.State.EATING,
+                new Coord(getResources().getInteger(R.integer.eating_x),
+                        getResources().getInteger(R.integer.eating_y)));
         // TODO: Exercise 3 - You may need to create the Factory of Strategies here
         this.dogeView = new DogeView(this, Doge.State.HAPPY, stateBitmaps, stateCoords);
 
