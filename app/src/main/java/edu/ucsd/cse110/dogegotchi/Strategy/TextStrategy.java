@@ -22,7 +22,7 @@ public class TextStrategy implements Strategy {
         canvas.drawPaint(paint);
         paint.setColor(Color.BLACK);
         paint.setTextSize(16);
-        canvas.drawText(this.text, this.textCoord.getX(), this.textCoord.getY(), paint);
+        canvas.drawText(this.text, this.textCoord.getX() + 20, this.textCoord.getY() + 20, paint);
     }
 }
 

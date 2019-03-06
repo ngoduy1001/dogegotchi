@@ -90,10 +90,12 @@ public class DogeView
             this.strategy = StrategyFactory.createStrategy(this.foodSprite, this.foodCoord);
         else if (newState == Doge.State.HAPPY)
             this.strategy = StrategyFactory.createStrategy(this.viewsPerFood.get(Doge.Food.BONE), this.coordsPerFood.get(Doge.Food.BONE));
-
+        else if (newState == Doge.State.SLEEPING)
+            this.strategy = StrategyFactory.createStrategy("Zzz...", this.coord);
+        else if (newState == Doge.State.SAD)
+            this.strategy = StrategyFactory.createStrategy("Hey!! i'm sad, gibe food pls", this.coord);
     }
 
-    @Override
     public void onFoodChange(Doge.Food newFood){
         this.setFoodSprite(this.viewsPerFood.get(newFood));
         this.setFoodCoord(this.coordsPerFood.get(newFood));

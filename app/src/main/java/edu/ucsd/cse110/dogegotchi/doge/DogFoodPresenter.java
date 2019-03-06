@@ -28,4 +28,6 @@ public class DogFoodPresenter implements IDogeObserver {
     public void onPlayerFeedDoge(Doge.Food food){
         doge.feed(food);
     }
+    public void onFoodChange(Doge.Food newFood){
+    }
 }
