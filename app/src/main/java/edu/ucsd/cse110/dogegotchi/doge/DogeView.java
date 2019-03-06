@@ -2,12 +2,15 @@ package edu.ucsd.cse110.dogegotchi.doge;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 
 import java.util.Map;
 
+import edu.ucsd.cse110.dogegotchi.Strategy.Strategy;
+import edu.ucsd.cse110.dogegotchi.Strategy.StrategyFactory;
 import edu.ucsd.cse110.dogegotchi.sprite.BitmapSprite;
 import edu.ucsd.cse110.dogegotchi.sprite.Coord;
 
@@ -30,6 +33,8 @@ public class DogeView
      * Lookup table for the coordinates for each state.
      */
     private ImmutableMap<Doge.State, Coord> coordsPerState;
+
+    private Strategy strategy;
 
     public DogeView(final Context context,
                     final Doge.State initialState,
@@ -58,6 +63,9 @@ public class DogeView
         // update super sprite
         this.setSprite(this.viewsPerState.get(newState));
         this.setCoord(this.coordsPerState.get(newState));
+        // TODO FACTORY create here then save the strategy
+        //TODO cost too much?
+        StrategyFactory factory =
     }
 
     /**
@@ -73,5 +81,18 @@ public class DogeView
         Preconditions.checkArgument(this.coordsPerState.containsKey(state),
                 String.format(LOOKUP_TABLE_PRECONDITION_ERROR_MSG,
                         "coordinates", state.toString(), "coordsPerState"));
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        Preconditions.checkNotNull(sprite);
+        Preconditions.checkArgument(coord.getX()>=0, String.format(PRECONDITION_ERROR_MESSAGE, "x"));
+        Preconditions.checkArgument(coord.getY()>=0, String.format(PRECONDITION_ERROR_MESSAGE, "y"));
+
+        canvas.drawBitmap(sprite, coord.getX(), coord.getY(), null);
+
+        this.strategy.drawToCanvas(canvas);
+
+
     }
 }
