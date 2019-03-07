@@ -132,8 +132,8 @@ public class Doge implements ISubject<IDogeObserver>, ITickerObserver, IDayNight
         }
     }
     public void feed(Food food){
-        this.setState(State.EATING);
         this.setFood(food);
+        this.setState(State.EATING);
     }
     private void doneEating(){
         if (this.state == State.EATING){

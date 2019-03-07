@@ -19,9 +19,11 @@ public class TextStrategy implements Strategy {
 
     public void drawToCanvas(Canvas canvas){
         Paint paint = new Paint();
-        canvas.drawPaint(paint);
+        paint.setColor(Color.BLUE);
+        //paint.setStyle(Paint.Style.FILL);
+        canvas.drawRect(this.textCoord.getX() - 200, this.textCoord.getY() + 200, this.textCoord.getX() + 200, this.textCoord.getY() - 200, paint);
         paint.setColor(Color.BLACK);
-        paint.setTextSize(16);
+        paint.setTextSize(25);
         canvas.drawText(this.text, this.textCoord.getX() + 20, this.textCoord.getY() + 20, paint);
     }
 }

@@ -211,29 +211,29 @@ public class MainActivity extends Activity {
                 BitmapFactory.decodeResource(getResources(), R.drawable.dogbone_2x));
         foodCoords.put(Doge.Food.BONE,
                 //TODO Change these Coord
-                new Coord(getResources().getInteger(R.integer.happy_x) + 50,
-                        getResources().getInteger(R.integer.happy_y) + 50 ));
+                new Coord(getResources().getInteger(R.integer.happy_x) + 0,
+                        getResources().getInteger(R.integer.happy_y) + 200 ));
 
         foodBitmaps.put(Doge.Food.HAM,
                 BitmapFactory.decodeResource(getResources(), R.drawable.ham_2x));
         foodCoords.put(Doge.Food.HAM,
                 //TODO Change these Coord
-                new Coord(getResources().getInteger(R.integer.eating_x) + 50,
-                        getResources().getInteger(R.integer.eating_y) + 50 ));
+                new Coord(getResources().getInteger(R.integer.eating_x) + 0,
+                        getResources().getInteger(R.integer.eating_y) + 150 ));
 
         foodBitmaps.put(Doge.Food.TURKEY,
                 BitmapFactory.decodeResource(getResources(), R.drawable.turkey_leg_2x));
         foodCoords.put(Doge.Food.TURKEY,
                 //TODO Change these Coord
-                new Coord(getResources().getInteger(R.integer.eating_x) + 50,
-                        getResources().getInteger(R.integer.eating_y) + 50 ));
+                new Coord(getResources().getInteger(R.integer.eating_x) + 0,
+                        getResources().getInteger(R.integer.eating_y) + 150 ));
 
         foodBitmaps.put(Doge.Food.STEAK,
                 BitmapFactory.decodeResource(getResources(), R.drawable.steak_2x));
         foodCoords.put(Doge.Food.STEAK,
                 //TODO Change these Coord
-                new Coord(getResources().getInteger(R.integer.eating_x) + 50,
-                        getResources().getInteger(R.integer.eating_y) + 50 ));
+                new Coord(getResources().getInteger(R.integer.eating_x) + 0,
+                        getResources().getInteger(R.integer.eating_y) + 150 ));
 
         // TODO: Exercise 3 - You may need to create the Factory of Strategies here
         this.dogeView = new DogeView(this, Doge.State.HAPPY, stateBitmaps, stateCoords, foodBitmaps, foodCoords);
