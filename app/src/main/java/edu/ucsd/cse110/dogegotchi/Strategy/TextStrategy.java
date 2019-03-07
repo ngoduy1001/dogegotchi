@@ -21,10 +21,10 @@ public class TextStrategy implements Strategy {
         Paint paint = new Paint();
         paint.setColor(Color.BLUE);
         //paint.setStyle(Paint.Style.FILL);
-        canvas.drawRect(this.textCoord.getX() - 200, this.textCoord.getY() + 200, this.textCoord.getX() + 200, this.textCoord.getY() - 200, paint);
+        //canvas.drawRect(this.textCoord.getX() - 200, this.textCoord.getY() + 200, this.textCoord.getX() + 200, this.textCoord.getY() - 200, paint);
         paint.setColor(Color.BLACK);
-        paint.setTextSize(25);
-        canvas.drawText(this.text, this.textCoord.getX() + 20, this.textCoord.getY() + 20, paint);
+        paint.setTextSize(30);
+        canvas.drawText(this.text, this.textCoord.getX() + 20, this.textCoord.getY(), paint);
     }
 }
 
